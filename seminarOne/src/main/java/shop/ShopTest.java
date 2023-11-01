@@ -41,9 +41,11 @@ public class ShopTest {
     }
 
     public static void conformityOfProducts(Shop shop) {
+        List<String> productNames = new ArrayList<>();
         for (Product p: shop.getProducts()) {
-            assertThat(p.getTitle()).containsAnyOf("apple", "peach");
+            productNames.add(p.getTitle());
         }
+        assertThat(productNames).contains("apple", "peach");
     }
 
     public static void getMostExpensiveProduct(Shop shop) {
