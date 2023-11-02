@@ -38,13 +38,14 @@ class ShopTest {
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-    // private Shop shop;
-    // private Cart cart;
-    //  @BeforeEach
-    //  void setup() {
-    //      shop = new Shop(getStoreItems());
-    //      cart = new Cart(shop);
-    //  }
+    private Shop shop;
+    private Cart cart;
+
+    @BeforeEach
+    void setup() {
+        shop = new Shop(getStoreItems());
+        cart = new Cart(shop);
+    }
 
 
 /*
@@ -72,11 +73,14 @@ class ShopTest {
     @Test
     void priceCartIsCorrectCalculated() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+//        Shop shop = new Shop(getStoreItems());
+//        Cart cart = new Cart(shop);
         // Act (Выполнение)
         cart.addProductToCartByID(1); // 170 +
-        //..
+        cart.addProductToCartByID(2); // 250 +
+        cart.addProductToCartByID(3); // 200 +
+
+        assertThat(cart.getTotalPrice()).isEqualTo(620.0);
     }
 
     /**
@@ -90,9 +94,12 @@ class ShopTest {
         // Arrange
 
         // Act
-
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
         // Assert
-
+        assertThat(cart.getTotalPrice()).isEqualTo(400.0);
     }
 
     /**
@@ -103,6 +110,15 @@ class ShopTest {
      */
     @Test
     void whenChangingCartCostRecalculationIsCalled() {
+        // Act
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        cart.removeProductByID(10);
+        // Assert
+        assertThat(cart.getTotalPrice()).isEqualTo(300.0);
+
 
     }
 
@@ -112,9 +128,12 @@ class ShopTest {
      * <br><b>Ожидаемый результат:</b>
      * Количество товара в магазине уменьшается на число продуктов в корзине пользователя
      */
-
+    @Test
     void quantityProductsStoreChanging() {
-
+        cart.addProductToCartByID(10);
+        cart.addProductToCartByID(10);
+        int afterValue = shop.getProductsShop().get(9).getQuantity();
+        assertThat(afterValue).isEqualTo(28);
     }
 
     /**
@@ -123,8 +142,15 @@ class ShopTest {
      * <br><b>Ожидаемый результат:</b>
      * Больше такой продукт заказать нельзя, он не появляется на полке
      */
-
+    @Test
     void lastProductsDisappearFromStore() {
+        for (int i = 0; i < 10; i++) {
+            cart.addProductToCartByID(1);
+        }
+        int baconInShop = shop.getProductsShop().get(0).getQuantity();
+        assertThat(cart.cartItems.get(0).getQuantity()).isEqualTo(10);
+        cart.addProductToCartByID(1);
+        assertThat(baconInShop).isEqualTo(0);
 
     }
 
@@ -134,7 +160,16 @@ class ShopTest {
      * <br><b>Ожидаемый результат:</b>
      * Количество продуктов этого типа на складе увеличивается на число удаленных из корзины продуктов
      */
+    @Test
     void deletedProductIsReturnedToShop() {
+        for (int i = 0; i < 3; i++) {
+            cart.addProductToCartByID(1);
+        }
+        assertThat(cart.cartItems.get(0).getQuantity()).isEqualTo(3);
+        cart.removeProductByID(1);
+        assertThat(cart.cartItems.get(0).getQuantity()).isEqualTo(2);
+        int baconInShop = shop.getProductsShop().get(0).getQuantity();
+        assertThat(baconInShop).isEqualTo(8);
 
     }
 
@@ -146,8 +181,14 @@ class ShopTest {
      * *Сделать тест параметризованным
      */
     //@Test
+    @ParameterizedTest
+    @ValueSource(ints = {50, -10, 15})
     void incorrectProductSelectionCausesException(int i) {
-
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            cart.addProductToCartByID(i);
+            cart.addProductToCartByID(i);
+        });
+        assertThat(exception.getMessage()).isEqualTo("Не найден продукт с id: " + i);
     }
 
     /**
@@ -173,7 +214,6 @@ class ShopTest {
     //          Shop shop = new Shop(getStoreItems());
     //          Cart cart = new Cart(shop);
     //      }
-
     @Test
     void testSUM() {
 
