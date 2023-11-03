@@ -73,5 +73,15 @@ public class CalculatorTest {
         // }
         //   assert 0 == seminars.first.Calculator.Calculator.calculation(2, 6, '+');
         //    assertThat(seminars.first.Calculator.Calculator.calculation(2, 6, '+')).isEqualTo(0);
+        assertThat(Calculator.calculatingDiscount(100.0,10)).isEqualTo(90);
+        assertThatThrownBy(() ->
+                Calculator.calculatingDiscount(-11,0)
+        ).isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() ->
+                Calculator.calculatingDiscount(30.0,-10)
+        ).isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() ->
+                Calculator.calculatingDiscount(20.0,100)
+        ).isInstanceOf(ArithmeticException.class);
     }
 }

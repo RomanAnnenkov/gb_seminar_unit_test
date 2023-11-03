@@ -40,7 +40,7 @@ public class Main {
 
         //  testingJavaCollectionsAssertJ(colors);
 
-        //  checkingHero();
+          checkingHero();
     }
 
     //                  Практические задания:
@@ -140,8 +140,13 @@ public class Main {
         5. Проверить, что герой человек (свойство true)
         */
 
-        // assert "Emmett".equals(emmett.getName()): "Name should be Emmett";
-        // Далее продолжите сами ...
+        assert "Emmett".equals(emmett.getName()): "Name should be Emmett";
+        assert 50 == emmett.armorStrength : "Armor strength should be 50";
+        assert "sword".equals(emmett.weapon) : "Weapon should be sword";
+        assert null != emmett.bag : "Inventory should not be null";
+        assert 3 == emmett.bag.size() : "Inventory size should be 3";
+        assert true == emmett.bag.containsAll(Arrays.asList("Bow","Axe","Gold")) : "Inventory should contain a bow, axe, gold";
+        assert true == emmett.isHuman : "Hero should be human";
 
     }
 
