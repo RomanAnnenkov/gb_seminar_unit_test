@@ -1,6 +1,8 @@
 package seminars.second.simple_shopping_cart;
 
+import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -198,7 +200,10 @@ class ShopTest {
      */
     @Test
     void incorrectProductRemoveCausesException() {
-
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            cart.removeProductByID(1);
+        });
+        assertThat(exception.getMessage()).isEqualTo("В корзине не найден продукт с id: " + 1);
     }
 
     /**
@@ -216,7 +221,11 @@ class ShopTest {
     //      }
     @Test
     void testSUM() {
-
+        // Act (Выполнение)
+        cart.addProductToCartByID(2); // 250
+        cart.addProductToCartByID(2); // 250
+        // Assert (Проверка утверждения)
+        assertThat(cart.getTotalPrice()).isEqualTo(500.0);
     }
 
     /**
@@ -226,6 +235,15 @@ class ShopTest {
      * <br> 3. Установлен таймаут на выполнение теста 70 Миллисекунд (unit = TimeUnit.MILLISECONDS)
      * <br> 4. После проверки работоспособности теста, его нужно выключить
      */
-
-   // ...
+    @DisplayName("Advanced test for calculating TotalPrice")
+    @RepeatedTest(10)
+    @Timeout(70L)
+    @Disabled
+    void advancedCartSumTest() {
+        // Act (Выполнение)
+        cart.addProductToCartByID(2); // 250
+        cart.addProductToCartByID(2); // 250
+        // Assert (Проверка утверждения)
+        assertThat(cart.getTotalPrice()).isEqualTo(500.0);
+    }
 }
