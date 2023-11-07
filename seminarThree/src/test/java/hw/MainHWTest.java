@@ -24,8 +24,18 @@ class MainHWTest {
     }
 
     @Test
-    void isNumberInInterval() {
-        assertTrue(mainHW.numberInInterval(3));
+    void numberIsInInterval() {
+        for (int i = 26; i < 100; i++) {
+            assertTrue(mainHW.numberInInterval(i));
+        }
+    }
+
+    @Test
+    void numberIsNotInInterval() {
+        int[] numbers = new int[]{-30, 0, 25, 120};
+        for (int number : numbers) {
+            assertFalse(mainHW.numberInInterval(number));
+        }
     }
 
 }
