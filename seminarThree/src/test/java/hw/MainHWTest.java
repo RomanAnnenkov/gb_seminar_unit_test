@@ -23,4 +23,9 @@ class MainHWTest {
         assertFalse(mainHW.evenOddNumber(1));
     }
 
+    @Test
+    void isNumberInInterval() {
+        assertTrue(mainHW.numberInInterval(3));
+    }
+
 }
