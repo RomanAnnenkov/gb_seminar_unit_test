@@ -9,25 +9,37 @@ import static org.assertj.core.api.Assertions.*;
 class UserRepositoryTest {
 
     UserRepository repository;
+    User user;
 
     @BeforeEach
     void setup() {
         repository = new UserRepository();
+        user = new User("1","1", false);
     }
 
     @Test
     void addAuthorizedUserToRepository() {
-        User user = new User("1","1", false);
         user.authenticate("1","1");
         repository.addUser(user);
         assertTrue(repository.data.contains(user));
     }
     @Test
     void addNotAuthorizedUserToRepository() {
-        User user = new User("1","1", false);
         user.authenticate("1","4");
         repository.addUser(user);
         assertFalse(repository.data.contains(user));
+    }
+
+    @Test
+    void logOutEveryoneExceptAdministrators() {
+        user.authenticate("1","1");
+        repository.addUser(user);
+        repository.logOutNonPrivilegedUsers();
+        for (User loggedUser:repository.data) {
+            if (!user.isAdmin) {
+                assertFalse(user.isAuthenticate);
+            }
+        }
     }
 
 }

@@ -23,4 +23,8 @@ public class UserRepository {
         return false;
     }
 
+    public void logOutNonPrivilegedUsers() {
+
+    }
+
 }
