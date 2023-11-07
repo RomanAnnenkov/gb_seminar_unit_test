@@ -4,7 +4,7 @@ public class MainHW {
     // HW 3.1. Нужно покрыть тестами метод на 100%
     // Метод проверяет, является ли целое число записанное в переменную n, чётным (true) либо нечётным (false).
     public boolean evenOddNumber (int number) {
-        return false;
+        return number % 2 == 0;
     }
 
 

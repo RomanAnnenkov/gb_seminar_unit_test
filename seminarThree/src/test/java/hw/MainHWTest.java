@@ -18,4 +18,9 @@ class MainHWTest {
         assertTrue(mainHW.evenOddNumber(2));
     }
 
+    @Test
+    void numberIsOdd() {
+        assertFalse(mainHW.evenOddNumber(1));
+    }
+
 }
