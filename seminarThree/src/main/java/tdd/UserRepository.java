@@ -24,7 +24,11 @@ public class UserRepository {
     }
 
     public void logOutNonPrivilegedUsers() {
-
+        for (User user : data) {
+            if (!user.isAdmin) {
+                user.isAuthenticate = false;
+            }
+        }
     }
 
 }

@@ -32,12 +32,17 @@ class UserRepositoryTest {
 
     @Test
     void logOutEveryoneExceptAdministrators() {
+        User admin = new User("roma","123", true);
+        admin.authenticate("roma","123");
+        repository.addUser(admin);
         user.authenticate("1","1");
         repository.addUser(user);
         repository.logOutNonPrivilegedUsers();
         for (User loggedUser:repository.data) {
             if (!user.isAdmin) {
                 assertFalse(user.isAuthenticate);
+            } else {
+                assertTrue(user.isAuthenticate);
             }
         }
     }
