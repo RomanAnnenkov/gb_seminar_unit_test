@@ -1,0 +1,7 @@
+package weather;
+
+
+class WeatherReporterTest {
+
+
+}
