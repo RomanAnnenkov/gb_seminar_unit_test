@@ -1,5 +1,9 @@
 package card;
 
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
+
 class PaymentFormTest {
 
     /**
@@ -12,7 +16,19 @@ class PaymentFormTest {
      * Создайте объект класса `PaymentForm`, передайте ему мок-объект в качестве аргумента.
      * Вызовите метод `pay()` и убедитесь, что мок-объект вызывает метод `charge()`
      */
+    @Test
+    void testPaymentForm() {
+        CreditCard card = mock(CreditCard.class);
+        when(card.getCardNumber()).thenReturn("123321");
+        when(card.getCardHolder()).thenReturn("Test Human");
+        when(card.getExpiryDate()).thenReturn("05/25");
+        when(card.getCvv()).thenReturn("111");
 
+        PaymentForm paymentForm = new PaymentForm(card);
+        paymentForm.pay(100);
+        verify(card, times(1)).charge(100);
+
+    }
 
 
 }
