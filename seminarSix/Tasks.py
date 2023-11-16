@@ -1,10 +1,10 @@
 class Tasks:
     # Задание 1
-    @staticmethod
-    def find_average(numbers):
-        if not numbers:
-            return 0
-        return sum(numbers) / len(numbers)
+    # @staticmethod
+    # def find_average(numbers):
+    #     if not numbers:
+    #         return 0
+    #     return sum(numbers) / len(numbers)
 
 
 
@@ -26,14 +26,13 @@ class Tasks:
 
 
     # Задание 2
-    # @staticmethod
-    # def find_average(numbers):
-    #     if not isinstance(numbers, list):
-    #         raise TypeError("Input should be a list.")
-    #     if not numbers:
-    #         return 0
-    #     return sum(numbers) / len(numbers)
-
+    @staticmethod
+    def find_average(numbers):
+        if not isinstance(numbers, list):
+            raise TypeError("Input should be a list.")
+        if not numbers:
+            return 0
+        return sum(numbers) / len(numbers)
 
 
 
@@ -192,3 +191,12 @@ class Tasks:
             if n % i == 0:
                 return False
         return True
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
+
+    print(Tasks.square.__doc__)
+    help(Tasks.square)
+    help(Tasks)

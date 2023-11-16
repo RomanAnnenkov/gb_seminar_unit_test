@@ -72,6 +72,7 @@ def test_person_bank_interaction():
     assert person.balance == 500
     assert bank.balance == 500
 
+
 def test_person_bank_valueerror():
     with pytest.raises(ValueError):
         person = Tasks.Person(0)
@@ -195,11 +196,15 @@ def test_multiply(a, b, expected):
 
 
 # Задание 7
-def test_len_string():
-    assert len("Geek") == 4  # Строка из 6 символов
-    assert len("") == 0  # Пустая строка
-    assert len(" ") == 1  # Строка из одного пробельного символа
-    assert len("Hello, World!") == 13  # Строка с пробелами и знаками препинания
+@pytest.mark.parametrize("test_str, expected_len", [
+    ("Geek", 4),  # Строка из 4 символов
+    ("", 0),  # Пустая строка
+    (" ", 1),  # Строка из одного пробельного символа
+    ("Hello, World!", 13)  # Строка с пробелами и знаками препинания
+])
+def test_len_string(test_str, expected_len):
+    assert len(test_str) == expected_len
+
 
 
 
