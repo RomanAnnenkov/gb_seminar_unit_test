@@ -7,8 +7,7 @@ import view.IView;
 
 public class Main {
     public static void main(String[] args) {
-        ArithmeticAverage arithmeticAverage = new ArithmeticAverage();
-        NumberListComparison numberListComparison = new NumberListComparison(arithmeticAverage);
+        NumberListComparison numberListComparison = new NumberListComparison(new ArithmeticAverage());
         INumberListCreator listCreator = new RandomNumbersList(3, 1, 20);
         IView view = new ConsoleView(listCreator, numberListComparison);
         view.run();

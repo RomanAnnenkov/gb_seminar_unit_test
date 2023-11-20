@@ -2,10 +2,15 @@ package model.listCreator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-class RandomNumbersListTest {
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+class RandomNumbersListTest {
     @Test
-    void createList() {
+    void testCreateList() {
+        RandomNumbersList randomNumbersList = new RandomNumbersList(5, 3,5);
+        List<Integer> list = randomNumbersList.createList();
+        assertThat(list.size()).isEqualTo(5);
     }
 }
